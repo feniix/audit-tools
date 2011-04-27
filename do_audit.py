@@ -4,19 +4,19 @@
    do_audit is a small script to create hashes from web applications in a jboss
    server for audit purposes. 
 """
-from email.mime.text import MIMEText
+from email.mime.text import MIMEText # email facilities
 import hashlib
+import logging # logging facilities
+import logging.handlers # logging facilities
 import os
-# for hostname
-import platform
-# email facilities
-import smtplib
+import platform # for hostname
+import smtplib # email facilities
 import stat
-# time convertions
-import time
-# logging facilities
-import logging
-import logging.handlers
+import time # time convertions
+
+
+
+
 
 
 def sha1(_filename):
