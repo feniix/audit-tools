@@ -1,39 +1,40 @@
 #!/usr/bin/env python
 # encoding: utf-8
-'''
-   do-audit is a small script to create hashes from web applications in a jboss
+"""
+   do_audit is a small script to create hashes from web applications in a jboss
    server for audit purposes. 
-'''
+"""
+from email.mime.text import MIMEText # email facilities
 import hashlib
+import logging # logging facilities
+import logging.handlers # logging facilities
 import os
+import platform # for hostname
+import smtplib # email facilities
 import stat
-# time convertions
-import time
-# for hostname
-import platform
-# logging facilities
-import logging
-import logging.handlers
-# email facilities
-import smtplib
-from email.mime.text import MIMEText
+import time # time convertions
+
+
+
+
+
 
 def sha1(_filename):
-  '''Returns a sha1 of the file received'''
+  """Returns the sha1 of the file received"""
   if os.path.isfile(_filename):
     return hashlib.sha1(open(_filename).read()).hexdigest()
   else:
     return "Cannot hash file: " + _filename
 
 def md5(_filename):
-  '''Returns a sha1 of the file received'''
+  """Returns the md5 of the file received"""
   if os.path.isfile(_filename):
     return hashlib.md5(open(_filename).read()).hexdigest()
   else:
     return "Cannot hash file: " + _filename
 
 def get_fileinfo(_filename):
-  '''Returns the file size in bytes and the Last modified attribute'''
+  """Returns the file size in bytes and the Last modified attribute"""
   if os.path.isfile(_filename):
     file_stats = os.stat(_filename)
     file_info = {
