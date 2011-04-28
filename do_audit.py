@@ -12,12 +12,7 @@ import os
 import platform # for hostname
 import smtplib # email facilities
 import stat
-import time # time convertions
-
-
-
-
-
+import time # time conversions
 
 def sha1(_filename):
   """Returns the sha1 of the file received"""
@@ -43,6 +38,7 @@ def get_fileinfo(_filename):
       'f_ct': time.strftime("%Y%m%d-%H:%M",time.localtime(file_stats[stat.ST_CTIME]))
     }
   return 'Size=%(fsize)s LastMod=%(f_lm)s' % file_info
+
 
 #This is where we setup which instances (jboss profiles) we are going to be monitoring
 audited_instances = [
@@ -81,7 +77,7 @@ for instance in audited_instances:
         print msg
         # now we submit the log line to splunk or the syslog server
         my_logger.info(msg)
-        tmp_email.append("%s\n" % (msg))
+        tmp_email.append("%s\n" % msg)
 
 # We setup the email settings
 email_from = "auditor@server.name"
@@ -89,7 +85,7 @@ email_to = "feniix@server.name"
 # we do unauthenticated smtp delivery
 email_server = "smtp.server.name" 
 
-# and we build the email
+# and we build the confirmation email
 email = MIMEText(''.join(tmp_email))
 email['Subject'] = "App Audit - %s %s %s" % (time.strftime("%Y %B", time.localtime()), 
                                              period, host)
