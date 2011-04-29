@@ -66,7 +66,6 @@ period = time.strftime("%Y%m" , time.localtime())
 tmp_email = []
 
 for instance in audited_instances:
-  print instance
   fullsrvdir = os.path.join(jboss_basedir, instance, deployment_directory)
   for root, dirs, files in os.walk(fullsrvdir):
     for f in files:
@@ -74,7 +73,6 @@ for instance in audited_instances:
         filename = os.path.join(root, f)
         msg = "APPAUDIT Host=%s Instance=%s Period=%s Artifact=%s %s SHA1=%s MD5=%s" % \
           (host, instance, period, f, get_fileinfo(filename), sha1(filename), md5(filename))
-        print msg
         # now we submit the log line to splunk or the syslog server
         my_logger.info(msg)
         tmp_email.append("%s\n" % msg)
